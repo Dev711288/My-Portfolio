@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dev Hajariwala - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+  </head>
+  <body>
+    <div class="page-bg" aria-hidden="true"></div>
+    <header class="site">
+      <div class="wrap inner">
+        <a class="brand" href="#top">{{ p.name }}</a>
+        <nav class="nav-desktop" aria-label="Primary">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#education">Education</a>
+          <a href="#contact">Contact</a>
+          <a href="{{ p.github }}" rel="noopener" target="_blank">GitHub</a>
+        </nav>
+        <details class="nav-mobile">
+          <summary><span class="sr-only">Open menu</span><span class="burger" aria-hidden="true"></span></summary>
+          <nav aria-label="Primary mobile">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
+            <a href="{{ p.github }}" rel="noopener" target="_blank">GitHub</a>
+          </nav>
+        </details>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="top">
+        <div class="hero-glow hero-glow--1" aria-hidden="true"></div>
+        <div class="hero-glow hero-glow--2" aria-hidden="true"></div>
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <p class="kicker"><span class="kicker-line"></span> Portfolio</p>
+            <h1>{{ p.name }}</h1>
+            <p class="sub roles">{{ p.roles_line }}</p>
+            <p class="sub-location">{{ p.location }} · <a href="tel:+91{{ p.phone }}">{{ p.phone }}</a></p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="mailto:{{ p.email }}">Email me</a>
+              <a class="btn btn-ghost" href="{{ p.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>
+              <a class="btn btn-ghost" href="{{ p.github }}" rel="noopener" target="_blank">GitHub</a>
+              <a class="btn btn-ghost" href="tel:+91{{ p.phone }}">Call +91 {{ p.phone }}</a>
+            </div>
+          </div>
+          <figure class="photo-frame" aria-label="Portrait">
+            <img src="{{ url_for('static', filename='img/profile.jpg') }}" alt="{{ p.name }}" width="680" height="900" />
+          </figure>
+        </div>
+      </section>
+
+      <section id="about" class="alt">
+        <div class="wrap">
+          <header class="section-head">
+            <h2>Summary</h2>
+            <p class="section-lead">How I work and what I bring to a team.</p>
+          </header>
+          <p class="lead">{{ p.summary }}</p>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="wrap">
+          <header class="section-head">
+            <h2>Technical skills</h2>
+            <p class="section-lead">Full-stack, Python, and ML tooling I use day to day.</p>
+          </header>
+          <div class="skill-grid">
+            {% for heading, items in p.skills.items() %}
+            <div class="skill-card">
+              <h3>{{ heading }}</h3>
+              <div class="tags">
+                {% for item in items %}
+                <span class="tag">{{ item }}</span>
+                {% endfor %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="alt">
+        <div class="wrap">
+          <header class="section-head">
+            <h2>Experience</h2>
+            <p class="section-lead">Roles where I have delivered end-to-end.</p>
+          </header>
+          <div class="timeline">
+            {% for job in p.experience %}
+            <article class="job">
+              <div class="job-head">
+                <h3>{{ job.role }} — {{ job.company }}</h3>
+                <span class="job-meta">{{ job.period }}</span>
+              </div>
+              <ul>
+                {% for line in job.bullets %}
+                <li>{{ line }}</li>
+                {% endfor %}
+              </ul>
+            </article>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="wrap">
+          <header class="section-head">
+            <h2>Projects</h2>
+            <p class="section-lead">
+              Repositories on
+              <a href="{{ p.github }}" rel="noopener" target="_blank">GitHub</a>
+              plus highlighted builds.
+            </p>
+          </header>
+          <div class="cards">
+            {% for proj in p.projects %}
+            <article class="card">
+              <h3>{{ proj.title }}</h3>
+              <p>{{ proj.description }}</p>
+              {% if proj.bullets %}
+              <ul class="muted card-bullets">
+                {% for b in proj.bullets %}
+                <li>{{ b }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+              <div class="tags">
+                {% for t in proj.tech %}
+                <span class="tag">{{ t }}</span>
+                {% endfor %}
+              </div>
+              {% if proj.repo %}
+              <div class="card-actions">
+                <a class="btn btn-ghost btn-compact" href="{{ proj.repo }}" rel="noopener" target="_blank"
+                  >View repository</a
+                >
+              </div>
+              {% endif %}
+            </article>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section id="education" class="alt">
+        <div class="wrap">
+          <header class="section-head">
+            <h2>Education</h2>
+            <p class="section-lead">Formal training in computer engineering.</p>
+          </header>
+          <div class="edu-list">
+            {% for row in p.education %}
+            <div class="edu-row">
+              <div>
+                <strong>{{ row.degree }}</strong>
+                {% if row.school %}<span class="muted"> · {{ row.school }}</span>{% endif %}
+              </div>
+              <div class="muted">{{ row.period }}{% if row.detail %} · {{ row.detail }}{% endif %}</div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="wrap">
+          <header class="section-head">
+            <h2>Additional</h2>
+            <p class="section-lead">Languages, certifications, and internships.</p>
+          </header>
+          <p class="lead contact-langs">
+            <strong>Languages:</strong> {{ p.languages_spoken | join(", ") }}
+          </p>
+          <h3 class="subheading">Certifications &amp; internships</h3>
+          <ul class="muted cert-list">
+            {% for c in p.certifications %}
+            <li>{{ c }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p class="footer-tagline">
+          Interested in Python development, AI/ML engineering, and strong full-stack (.NET / Angular) teams.
+        </p>
+        <p class="footer-links">
+          {{ p.name }}
+          <span class="dot">·</span>
+          <a href="mailto:{{ p.email }}">{{ p.email }}</a>
+          <span class="dot">·</span>
+          <a href="tel:+91{{ p.phone }}">+91 {{ p.phone }}</a>
+          <span class="dot">·</span>
+          <a href="{{ p.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>
+          <span class="dot">·</span>
+          <a href="{{ p.github }}" rel="noopener" target="_blank">GitHub</a>
+        </p>
+      </div>
+    </footer>
+    <script>
+      document.querySelectorAll(".nav-mobile nav a").forEach(function (link) {
+        link.addEventListener("click", function () {
+          var d = document.querySelector(".nav-mobile");
+          if (d) d.removeAttribute("open");
+        });
+      });
+    </script>
+  </body>
+</html>
