@@ -1,6 +1,8 @@
 """Dev Hajariwala — personal portfolio (Flask). Run: python app.py"""
 from __future__ import annotations
 
+import os
+
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -139,6 +141,9 @@ PORTFOLIO = {
 def index():
     return render_template("index.html", p=PORTFOLIO)
 
-
 if __name__ == "__main__":
-    app.run(debug=True, host="127.0.0.1", port=5000)
+    app.run(
+        debug=os.environ.get("FLASK_DEBUG", "").lower() in {"1", "true", "yes"},
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+    )

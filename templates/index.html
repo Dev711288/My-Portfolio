@@ -4,6 +4,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Dev Hajariwala - Portfolio</title>
+    <meta
+      name="description"
+      content="Professional portfolio of {{ p.name }} showcasing full-stack development, Python engineering, and AI/ML projects."
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -51,11 +55,28 @@
             <h1>{{ p.name }}</h1>
             <p class="sub roles">{{ p.roles_line }}</p>
             <p class="sub-location">{{ p.location }} · <a href="tel:+91{{ p.phone }}">{{ p.phone }}</a></p>
+            <p class="hero-note">
+              Open to impactful software engineering opportunities in full-stack and AI/ML product teams.
+            </p>
             <div class="hero-actions">
               <a class="btn btn-primary" href="mailto:{{ p.email }}">Email me</a>
               <a class="btn btn-ghost" href="{{ p.linkedin }}" rel="noopener" target="_blank">LinkedIn</a>
               <a class="btn btn-ghost" href="{{ p.github }}" rel="noopener" target="_blank">GitHub</a>
               <a class="btn btn-ghost" href="tel:+91{{ p.phone }}">Call +91 {{ p.phone }}</a>
+            </div>
+            <div class="hero-highlights" aria-label="Portfolio highlights">
+              <div class="highlight-item">
+                <strong>{{ p.experience | length }}+</strong>
+                <span>Experience roles</span>
+              </div>
+              <div class="highlight-item">
+                <strong>{{ p.projects | length }}+</strong>
+                <span>Projects delivered</span>
+              </div>
+              <div class="highlight-item">
+                <strong>{{ p.skills | length }}+</strong>
+                <span>Skill categories</span>
+              </div>
             </div>
           </div>
           <figure class="photo-frame" aria-label="Portrait">
@@ -182,7 +203,7 @@
       <section id="contact">
         <div class="wrap">
           <header class="section-head">
-            <h2>Additional</h2>
+            <h2>Additional credentials</h2>
             <p class="section-lead">Languages, certifications, and internships.</p>
           </header>
           <p class="lead contact-langs">
@@ -214,6 +235,7 @@
           <span class="dot">·</span>
           <a href="{{ p.github }}" rel="noopener" target="_blank">GitHub</a>
         </p>
+        <p class="footer-copy">&copy; <span id="year"></span> {{ p.name }}. Designed with a focus on clean, modern UX.</p>
       </div>
     </footer>
     <script>
@@ -223,6 +245,8 @@
           if (d) d.removeAttribute("open");
         });
       });
+      var yearNode = document.getElementById("year");
+      if (yearNode) yearNode.textContent = new Date().getFullYear();
     </script>
   </body>
 </html>
