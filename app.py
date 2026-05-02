@@ -1,11 +1,12 @@
 """Dev Hajariwala — personal portfolio (Flask). Run: python app.py"""
 from __future__ import annotations
-
 import os
-
 from flask import Flask, render_template
 
-app = Flask(__name__)
+app = Flask(__name__,
+    template_folder="../templates",  # ← points up to your templates/
+    static_folder="../static"        # ← points up to your static/
+)
 
 PORTFOLIO = {
     "name": "Dev Hajariwala",
@@ -140,10 +141,3 @@ PORTFOLIO = {
 @app.route("/")
 def index():
     return render_template("index.html", p=PORTFOLIO)
-
-if __name__ == "__main__":
-    app.run(
-        debug=os.environ.get("FLASK_DEBUG", "").lower() in {"1", "true", "yes"},
-        host="0.0.0.0",
-        port=int(os.environ.get("PORT", 1116)),
-    )

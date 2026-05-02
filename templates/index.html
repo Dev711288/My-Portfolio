@@ -64,20 +64,6 @@
               <a class="btn btn-ghost" href="{{ p.github }}" rel="noopener" target="_blank">GitHub</a>
               <a class="btn btn-ghost" href="tel:+91{{ p.phone }}">Call +91 {{ p.phone }}</a>
             </div>
-            <div class="hero-highlights" aria-label="Portfolio highlights">
-              <div class="highlight-item">
-                <strong>{{ p.experience | length }}+</strong>
-                <span>Experience roles</span>
-              </div>
-              <div class="highlight-item">
-                <strong>{{ p.projects | length }}+</strong>
-                <span>Projects delivered</span>
-              </div>
-              <div class="highlight-item">
-                <strong>{{ p.skills | length }}+</strong>
-                <span>Skill categories</span>
-              </div>
-            </div>
           </div>
           <figure class="photo-frame" aria-label="Portrait">
             <img src="{{ url_for('static', filename='img/profile.jpg') }}" alt="{{ p.name }}" width="680" height="900" />
